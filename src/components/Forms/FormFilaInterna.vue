@@ -48,15 +48,6 @@
                 <v-btn type="submit" color="success">Cadastrar</v-btn>
             </div>
         </v-form>
-        <v-row class="d-flex justify-end">
-            <v-col cols="12" md="4">
-                <v-text-field label="Pesquisar"></v-text-field>
-            </v-col>
-            <v-col>
-                <v-btn color="primary">Listar por </v-btn>
-            </v-col>
-        </v-row>
-        <v-data-table :headers="headers" :items="filas" />
     </v-card>
   </v-container>
 </template>
@@ -85,18 +76,10 @@ const form = ref({
 
 const tv = ["TV Normal", "TV Corporativa"]
 
-const headers = ref([
-  { title: "Nome", key: "nome" },
-  { title: "Descrição", key: "descricao" },
-  { title: "Chama pelo Nome", key: "chamada" },
-  { title: "Tempo de Espera Max.", key: "tempoEspera" },
-  { title: "Tempo de Atendimento Max.", key: "tempoAtendimento" }, 
-  { title: "Status", key: "status" },
-  { title: "Editar", key: "editar" }
-])
-const filas = ref([{
-    nome: "Exame de Prostata", descricao: "Normal", chamada: "Sim", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: ""
-}])
+const selecionados = ref({
+    Manhã: [],
+    Tarde: []
+})
 
 </script>
 <style scoped>

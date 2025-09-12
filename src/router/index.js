@@ -4,6 +4,8 @@ import Fila from '../views/Fila.vue'
 import FilaInterna from '../views/FilaInterna.vue'
 import Filas from '../views/Filas.vue'
 import Login from '../views/Login.vue'
+import FormFila from '../components/Forms/FormFila.vue'
+import FormFilaInterna from '../components/Forms/FormFilaInterna.vue'
 
 
 const router = createRouter({
@@ -23,6 +25,21 @@ const router = createRouter({
       path: '/filainterna',
       name: 'filainterna',
       component: FilaInterna,
+    },
+    {
+      path: '/formfila',
+      name: 'formfila',
+      component: FormFila,
+    },
+    {
+      path: '/formfilainterna',
+      name: 'formfilainterna',
+      component: FormFilaInterna,
+    },
+    {
+      path: '/filas',
+      name: 'filas',
+      component: Filas,
     },
     {
       path: '/filas',

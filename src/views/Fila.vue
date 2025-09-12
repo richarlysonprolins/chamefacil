@@ -1,90 +1,24 @@
 <template>
-  <v-container fluid class="pa-6">
-    <v-card class="pa-6 ma-6">
-        <h1 class="mb-6">Cadastro de Fila</h1>
-        <v-form v-model="valid" class="pa-4">
-            <v-row>
-                <v-col cols="12" md="8">
-                    <v-text-field v-model="form.nome" label="Nome" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="form.descricao" label="Descrição" outlined required></v-text-field>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="4">
-                    <v-select v-model="form.totem" :items="totem" label="Totem" outlined required></v-select>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-select v-model="form.grupo" :items="grupo" label="Grupo de Filas" outlined required></v-select>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-select v-model="form.tv" :items="tv" label="TV" outlined required>
-                    </v-select>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="4">
-                    <v-select v-model="form.unidade" :items="unidades" label="Unidade" outlined required></v-select>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-text-field v-model="form.sigla" label="Sigla" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-text-field type="number" v-model="form.inicio" label="Inicio" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-text-field type="number" v-model="form.fim" label="Fim" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-select v-model="form.acompanhante" :items="['Não', 'Sim']" label="Acompanhante" outlined required></v-select>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="3">
-                    <v-text-field v-model="form.tempoEspera" label="Tempo de Espera Máximo" placeholder="Em minutos" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="form.tempoAtendimento" label="Tempo de Atendimento Máximo" placeholder="Em minutos" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="3">
-                    <v-select v-model="form.alerta" :items="['Não', 'Sim']" label="Envio de Alerta por Email" outlined required></v-select>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-checkbox v-model="form.qrcode" label="QR Code"></v-checkbox>
-                </v-col>
-            </v-row>
-
-            <h1 class="mb-6">Dias da Semana</h1>
-                <v-table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th v-for="dia in dias" :key="dia">{{ dia }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="periodo in periodos" :key="periodo">
-                            <td>{{ periodo }}</td>
-                            <td v-for="dia in dias" :key="dia">
-                                <v-checkbox v-model="selecionados[periodo]" :value="dia" density="compact"
-                                hide-details>
-                                </v-checkbox>
-                            </td>
-                        </tr>
-                    </tbody>
-                </v-table>
-            
-            <div class="ga-1 d-flex justify-end">
-                <v-btn color="red">Cancelar</v-btn>
-                <v-btn type="submit" color="success">Cadastrar</v-btn>
-            </div>
-        </v-form>
-        <v-row class="d-flex justify-end">
-            <v-col cols="12" md="4">
+  <v-container fluid class="pa-0  ma-0 fill-height">
+    <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
+        <v-row>
+            <v-col>
+                <h1>Filas</h1>
+            </v-col>
+            <v-col class="d-flex justify-end">
+                <v-btn
+                    color="primary"
+                    variant="flat"
+                    @click="abrirForm()"
+                    >Cadastrar Fila</v-btn>
+            </v-col>
+        </v-row>
+        <FormFila/>
+        <v-row>
+            <v-col cols="12" md="10">
                 <v-text-field label="Pesquisar"></v-text-field>
             </v-col>
-            <v-col>
+            <v-col class="d-flex pl-auto justify-end">
                 <v-btn color="primary">Listar por </v-btn>
             </v-col>
         </v-row>
@@ -105,13 +39,33 @@
                 <v-btn color="primary">Filtrar</v-btn>
             </v-col>
         </v-row>
-        <v-data-table :headers="headers" :items="filas" />
+        <v-data-table :headers="headers" :items="filas">
+            <template #item.editar="{ item }">  
+                <v-icon variant="plain"
+                class="cursor-pointer mr-2"
+                @click="abrirForm(item)">mdi-pencil</v-icon>
+            </template>
+
+            <template #item.status="{ item }">
+                <v-icon 
+                variant="plain"
+                @click="toggleStatus(item)" class="cursor-pointer mr-2" :color="item.status ? 'blue' : 'black'">mdi-power
+                    {{ item.status ? 'Ativo' : 'Inativo' }}
+                </v-icon> 
+            </template>
+        </v-data-table>
+        <FormFila v-model="openForm"
+        :fila="filaSelecionada"
+        @salvar="salvarFila"/>
     </v-card>
   </v-container>
 </template>
 <script setup>
 import { ref } from 'vue'
+import FormFila from '../components/Forms/FormFila.vue'
 
+const filaSelecionada = ref(null)
+const openForm = ref(false) 
 const valid = ref(false)
 
 const form = ref({
@@ -133,16 +87,8 @@ const form = ref({
 })
 
 const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
 const tv = ["TV Normal", "TV Corporativa"]
 const unidades = ["Prolins FC", "Procon"]
-const periodos = ["Manhã", "Tarde"]
-const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]
-
-const selecionados = ref({
-    Manhã: [],
-    Tarde: []
-})
 
 const headers = ref([
   { title: "Nome", key: "nome" },
@@ -153,16 +99,94 @@ const headers = ref([
   { title: "Grupo", key: "grupo" },
   { title: "Tempo de Espera Max.", key: "tempoEspera" },
   { title: "Tempo de Atendimento Max.", key: "tempoAtendimento" }, 
-  { title: "Status", key: "status" },
-  { title: "Editar", key: "editar" }
+  { title: "Status", key: "status", sortable: false},
+  { title: "Editar", key: "editar", sortable: false }
 ])
-const filas = ref([{
-    nome: "Atendimento 1", sigla: "Sigla", descricao: "AAAAA", unidade: "aaaaa", intervalo: "EEEP Jaime Alencar de Oliveira", grupo: "", tempoEspera: "", tempoAtendimento: "", status: "", editar: ""
-}])
+
+const filas = ref([
+  { nome: "Atendimento 1", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "1 a 500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 2", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "501 a 1000", grupo: "", tempoEspera: "15", tempoAtendimento: "12", status: "", editar: "" },
+  { nome: "Atendimento 3", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "1001 a 1500", grupo: "", tempoEspera: "8", tempoAtendimento: "20", status: "", editar: "" },
+  { nome: "Atendimento 4", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "1501 a 2000", grupo: "", tempoEspera: "12", tempoAtendimento: "15", status: "", editar: "" },
+  { nome: "Atendimento 5", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "2001 a 2500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 6", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "2501 a 3000", grupo: "", tempoEspera: "9", tempoAtendimento: "11", status: "", editar: "" },
+  { nome: "Atendimento 7", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "3001 a 3500", grupo: "", tempoEspera: "14", tempoAtendimento: "13", status: "", editar: "" },
+  { nome: "Atendimento 8", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "3501 a 4000", grupo: "", tempoEspera: "7", tempoAtendimento: "18", status: "", editar: "" },
+  { nome: "Atendimento 9", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "4001 a 4500", grupo: "", tempoEspera: "11", tempoAtendimento: "14", status: "", editar: "" },
+  { nome: "Atendimento 10", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "4501 a 5000", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 11", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "5001 a 5500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 12", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "5501 a 6000", grupo: "", tempoEspera: "15", tempoAtendimento: "12", status: "", editar: "" },
+  { nome: "Atendimento 13", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "6001 a 6500", grupo: "", tempoEspera: "8", tempoAtendimento: "20", status: "", editar: "" },
+  { nome: "Atendimento 14", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "6501 a 7000", grupo: "", tempoEspera: "12", tempoAtendimento: "15", status: "", editar: "" },
+  { nome: "Atendimento 15", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "7001 a 7500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 16", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "7501 a 8000", grupo: "", tempoEspera: "9", tempoAtendimento: "11", status: "", editar: "" },
+  { nome: "Atendimento 17", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "8001 a 8500", grupo: "", tempoEspera: "14", tempoAtendimento: "13", status: "", editar: "" },
+  { nome: "Atendimento 18", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "8501 a 9000", grupo: "", tempoEspera: "7", tempoAtendimento: "18", status: "", editar: "" },
+  { nome: "Atendimento 19", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "9001 a 9500", grupo: "", tempoEspera: "11", tempoAtendimento: "14", status: "", editar: "" },
+  { nome: "Atendimento 20", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "9501 a 10000", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 21", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "10001 a 10500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 22", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "10501 a 11000", grupo: "", tempoEspera: "15", tempoAtendimento: "12", status: "", editar: "" },
+  { nome: "Atendimento 23", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "11001 a 11500", grupo: "", tempoEspera: "8", tempoAtendimento: "20", status: "", editar: "" },
+  { nome: "Atendimento 24", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "11501 a 12000", grupo: "", tempoEspera: "12", tempoAtendimento: "15", status: "", editar: "" },
+  { nome: "Atendimento 25", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "12001 a 12500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 26", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "12501 a 13000", grupo: "", tempoEspera: "9", tempoAtendimento: "11", status: "", editar: "" },
+  { nome: "Atendimento 27", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "13001 a 13500", grupo: "", tempoEspera: "14", tempoAtendimento: "13", status: "", editar: "" },
+  { nome: "Atendimento 28", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "13501 a 14000", grupo: "", tempoEspera: "7", tempoAtendimento: "18", status: "", editar: "" },
+  { nome: "Atendimento 29", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "14001 a 14500", grupo: "", tempoEspera: "11", tempoAtendimento: "14", status: "", editar: "" },
+  { nome: "Atendimento 30", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "14501 a 15000", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 31", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "15001 a 15500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 32", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "15501 a 16000", grupo: "", tempoEspera: "15", tempoAtendimento: "12", status: "", editar: "" },
+  { nome: "Atendimento 33", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "16001 a 16500", grupo: "", tempoEspera: "8", tempoAtendimento: "20", status: "", editar: "" },
+  { nome: "Atendimento 34", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "16501 a 17000", grupo: "", tempoEspera: "12", tempoAtendimento: "15", status: "", editar: "" },
+  { nome: "Atendimento 35", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "17001 a 17500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 36", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "17501 a 18000", grupo: "", tempoEspera: "9", tempoAtendimento: "11", status: "", editar: "" },
+  { nome: "Atendimento 37", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "18001 a 18500", grupo: "", tempoEspera: "14", tempoAtendimento: "13", status: "", editar: "" },
+  { nome: "Atendimento 38", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "18501 a 19000", grupo: "", tempoEspera: "7", tempoAtendimento: "18", status: "", editar: "" },
+  { nome: "Atendimento 39", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "19001 a 19500", grupo: "", tempoEspera: "11", tempoAtendimento: "14", status: "", editar: "" },
+  { nome: "Atendimento 40", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "19501 a 20000", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 41", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "20001 a 20500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 42", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "20501 a 21000", grupo: "", tempoEspera: "15", tempoAtendimento: "12", status: "", editar: "" },
+  { nome: "Atendimento 43", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "21001 a 21500", grupo: "", tempoEspera: "8", tempoAtendimento: "20", status: "", editar: "" },
+  { nome: "Atendimento 44", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "21501 a 22000", grupo: "", tempoEspera: "12", tempoAtendimento: "15", status: "", editar: "" },
+  { nome: "Atendimento 45", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "22001 a 22500", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" },
+  { nome: "Atendimento 46", sigla: "SN", descricao: "Normal", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "22501 a 23000", grupo: "", tempoEspera: "9", tempoAtendimento: "11", status: "", editar: "" },
+  { nome: "Atendimento 47", sigla: "PR", descricao: "Prioritário", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "23001 a 23500", grupo: "", tempoEspera: "14", tempoAtendimento: "13", status: "", editar: "" },
+  { nome: "Atendimento 48", sigla: "EM", descricao: "Emergencial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "23501 a 24000", grupo: "", tempoEspera: "7", tempoAtendimento: "18", status: "", editar: "" },
+  { nome: "Atendimento 49", sigla: "ES", descricao: "Especial", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "24001 a 24500", grupo: "", tempoEspera: "11", tempoAtendimento: "14", status: "", editar: "" },
+  { nome: "Atendimento 50", sigla: "RT", descricao: "Rotina", unidade: "EEEP Jaime Alencar de Oliveira", intervalo: "24501 a 25000", grupo: "", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: "" }
+]);
+
+
+function toggleStatus(item){
+    item.status = !item.status
+}
+
+function abrirForm(fila = null) {
+    filaSelecionada.value = fila ? {...fila} : null
+    openForm.value = true
+}
+
+function salvarFila(fila) {
+  if (filaSelecionada.value) {
+    const index = filas.value.findIndex(f => f.nome === filaSelecionada.value.nome)
+    filas.value[index] = { ...fila }
+  } else {
+    filas.value.push({ ...fila })
+  }
+  openForm.value = false
+}
 
 </script>
 <style scoped>
 .v-checkbox {
     color: black;
+}
+
+.larguratoda {
+    width: 100% !important;
+}
+
+.fill-height {
+    height: 100%;
 }
 </style>
