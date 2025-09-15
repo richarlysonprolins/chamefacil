@@ -31,8 +31,8 @@ html, body, #app {
 }
 
 .sidebar {
-  width: 300px;      
-  background-color: #2c3e50;
+  width: 400px;      
+  background-color: #000000;
   color: white;
   padding: 20px;
 }
@@ -41,11 +41,28 @@ html, body, #app {
   flex: 1;          
   overflow-y: auto;
 }
+
+
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
+
+.sidebar li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: white !important;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 7px;
+  font-size: 15px;
+}
+
 .router-link-active {
   font-weight: bold;
 }

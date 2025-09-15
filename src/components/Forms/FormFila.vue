@@ -1,7 +1,7 @@
 <template>
         <v-dialog v-model="dialog" max-width="900">
             <v-card class="pa-12">
-                <v-form @submit.prevent="handleSubmit" method="POST" action="valida_login.php">
+                <v-form @submit.prevent="handleSubmit">
                     <h1 class="mb-6">{{ localFila ? 'Editar Fila' : 'Cadastrar Fila' }}</h1>
                     <v-row>
                         <v-col cols="12" md="8">

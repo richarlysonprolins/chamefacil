@@ -3,14 +3,14 @@
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Filas</h1>
+                <h1>Unidade/Posto de Atendimento</h1>
             </v-col>
             <v-col class="d-flex justify-end">
                 <v-btn
                     color="primary"
                     variant="flat"
                     @click="abrirForm()"
-                    >Cadastrar Fila</v-btn>
+                    >Cadastrar Unidade</v-btn>
             </v-col>
         </v-row>
         <v-row>
@@ -53,7 +53,7 @@
                 </v-icon> 
             </template>
         </v-data-table>
-        <FormFila v-model="openForm"
+        <FormUnidade v-model="openForm"
         :fila="filaSelecionada"
         @salvar="salvarFila"/>
     </v-card>
@@ -61,7 +61,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import FormFila from '../components/Forms/FormFila.vue'
+import FormUnidade from '../components/Forms/FormUnidade.vue'
 
 const filaSelecionada = ref(null)
 const openForm = ref(false) 
@@ -91,14 +91,13 @@ const unidades = ["Prolins FC", "Procon"]
 
 const headers = ref([
   { title: "Nome", key: "nome" },
-  { title: "Sigla", key: "sigla" },
+  { title: "Endereço", key: "sigla" },
   { title: "Descrição", key: "descricao" },
-  { title: "Unidade", key: "unidade" },
-  { title: "Intervalo", key: "intervalo" },
-  { title: "Grupo", key: "grupo" },
-  { title: "Tempo de Espera Max.", key: "tempoEspera" },
-  { title: "Tempo de Atendimento Max.", key: "tempoAtendimento" }, 
-  { title: "Status", key: "status", sortable: false},
+  { title: "CEP", key: "unidade" },
+  { title: "UF", key: "intervalo" },
+  { title: "Cidade", key: "grupo" },
+  { title: "Bairro", key: "tempoEspera" },
+  { title: "Telefone", key: "tempoAtendimento" }, 
   { title: "Editar", key: "editar", sortable: false }
 ])
 

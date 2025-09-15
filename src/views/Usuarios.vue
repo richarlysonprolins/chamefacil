@@ -3,14 +3,14 @@
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Filas</h1>
+                <h1>Usuário</h1>
             </v-col>
             <v-col class="d-flex justify-end">
                 <v-btn
                     color="primary"
                     variant="flat"
                     @click="abrirForm()"
-                    >Cadastrar Fila</v-btn>
+                    >Cadastrar Usuário</v-btn>
             </v-col>
         </v-row>
         <v-row>
@@ -19,23 +19,6 @@
             </v-col>
             <v-col class="d-flex pl-auto justify-end">
                 <v-btn color="primary">Listar por </v-btn>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" md="4">
-                <v-select v-model="form.unidade" :items="unidades" label="Unidade" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-select v-model="form.totem" :items="totem" label="Totem" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-select v-model="form.tv" :items="tv" label="TVs" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-checkbox label="Status"></v-checkbox>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-btn color="primary">Filtrar</v-btn>
             </v-col>
         </v-row>
         <v-data-table :headers="headers" :items="filas">
@@ -53,7 +36,7 @@
                 </v-icon> 
             </template>
         </v-data-table>
-        <FormFila v-model="openForm"
+        <FormUsuario v-model="openForm"
         :fila="filaSelecionada"
         @salvar="salvarFila"/>
     </v-card>
@@ -61,7 +44,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import FormFila from '../components/Forms/FormFila.vue'
+import FormUsuario from '../components/Forms/FormUsuario.vue'
 
 const filaSelecionada = ref(null)
 const openForm = ref(false) 
@@ -69,37 +52,20 @@ const valid = ref(false)
 
 const form = ref({
     nome: "",
-    descricao: "",
-    totem: "Nenhum",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
+    login: "",
+    senha: "Nenhum",
+    perfil: "Nenhum",
+    email: "Selecione as TVs",
 })
 
-const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const tv = ["TV Normal", "TV Corporativa"]
-const unidades = ["Prolins FC", "Procon"]
-
 const headers = ref([
-  { title: "Nome", key: "nome" },
-  { title: "Sigla", key: "sigla" },
-  { title: "Descrição", key: "descricao" },
-  { title: "Unidade", key: "unidade" },
-  { title: "Intervalo", key: "intervalo" },
-  { title: "Grupo", key: "grupo" },
-  { title: "Tempo de Espera Max.", key: "tempoEspera" },
-  { title: "Tempo de Atendimento Max.", key: "tempoAtendimento" }, 
-  { title: "Status", key: "status", sortable: false},
-  { title: "Editar", key: "editar", sortable: false }
+  { title: "Nome", key: "nome" }, 
+  { title: "Login", key: "status", sortable: false},
+  { title: "Email", key: "status", sortable: false},
+  { title: "Perfil", key: "editar", sortable: false },
+  { title: "Undiade", key: "editar", sortable: false },
+  { title: "Status", key: "status", sortable: false },
+  { title: "Editar", key: "editar", sortable: false}
 ])
 
 const filas = ref([

@@ -3,39 +3,23 @@
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Filas</h1>
+                <h1>Locais</h1>
             </v-col>
             <v-col class="d-flex justify-end">
                 <v-btn
                     color="primary"
                     variant="flat"
                     @click="abrirForm()"
-                    >Cadastrar Fila</v-btn>
+                    >Cadastrar Local</v-btn>
             </v-col>
         </v-row>
+        <FormFila/>
         <v-row>
             <v-col cols="12" md="10">
                 <v-text-field label="Pesquisar"></v-text-field>
             </v-col>
             <v-col class="d-flex pl-auto justify-end">
                 <v-btn color="primary">Listar por </v-btn>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" md="4">
-                <v-select v-model="form.unidade" :items="unidades" label="Unidade" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-select v-model="form.totem" :items="totem" label="Totem" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-select v-model="form.tv" :items="tv" label="TVs" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-checkbox label="Status"></v-checkbox>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-btn color="primary">Filtrar</v-btn>
             </v-col>
         </v-row>
         <v-data-table :headers="headers" :items="filas">
@@ -53,7 +37,7 @@
                 </v-icon> 
             </template>
         </v-data-table>
-        <FormFila v-model="openForm"
+        <FormLocal v-model="openForm"
         :fila="filaSelecionada"
         @salvar="salvarFila"/>
     </v-card>
@@ -61,7 +45,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import FormFila from '../components/Forms/FormFila.vue'
+import FormLocal from '../components/Forms/FormLocal.vue'
 
 const filaSelecionada = ref(null)
 const openForm = ref(false) 
@@ -90,14 +74,13 @@ const tv = ["TV Normal", "TV Corporativa"]
 const unidades = ["Prolins FC", "Procon"]
 
 const headers = ref([
-  { title: "Nome", key: "nome" },
-  { title: "Sigla", key: "sigla" },
-  { title: "Descrição", key: "descricao" },
+  { title: "Local", key: "local" },
   { title: "Unidade", key: "unidade" },
-  { title: "Intervalo", key: "intervalo" },
-  { title: "Grupo", key: "grupo" },
-  { title: "Tempo de Espera Max.", key: "tempoEspera" },
-  { title: "Tempo de Atendimento Max.", key: "tempoAtendimento" }, 
+  { title: "Descrição", key: "descricao" },
+  { title: "Situação", key: "situacao" },
+  { title: "Atendente", key: "atendente" },
+  { title: "Ordem", key: "ordem" },
+  { title: "Agen.", key: "tempoEspera" },
   { title: "Status", key: "status", sortable: false},
   { title: "Editar", key: "editar", sortable: false }
 ])

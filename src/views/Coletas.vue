@@ -3,14 +3,14 @@
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Filas</h1>
+                <h1>Coletas</h1>
             </v-col>
             <v-col class="d-flex justify-end">
                 <v-btn
                     color="primary"
                     variant="flat"
                     @click="abrirForm()"
-                    >Cadastrar Fila</v-btn>
+                    >Cadastrar Coleta</v-btn>
             </v-col>
         </v-row>
         <v-row>
@@ -21,23 +21,7 @@
                 <v-btn color="primary">Listar por </v-btn>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col cols="12" md="4">
-                <v-select v-model="form.unidade" :items="unidades" label="Unidade" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-select v-model="form.totem" :items="totem" label="Totem" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-select v-model="form.tv" :items="tv" label="TVs" outlined required></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-checkbox label="Status"></v-checkbox>
-            </v-col>
-            <v-col cols="12" md="2">
-                <v-btn color="primary">Filtrar</v-btn>
-            </v-col>
-        </v-row>
+
         <v-data-table :headers="headers" :items="filas">
             <template #item.editar="{ item }">  
                 <v-icon variant="plain"
@@ -53,7 +37,7 @@
                 </v-icon> 
             </template>
         </v-data-table>
-        <FormFila v-model="openForm"
+        <FormColeta v-model="openForm"
         :fila="filaSelecionada"
         @salvar="salvarFila"/>
     </v-card>
@@ -61,7 +45,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import FormFila from '../components/Forms/FormFila.vue'
+import FormColeta from '../components/Forms/FormColeta.vue'
 
 const filaSelecionada = ref(null)
 const openForm = ref(false) 

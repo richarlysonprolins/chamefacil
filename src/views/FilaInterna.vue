@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="pa-6">
-    <v-card class="pa-6 ma-6">
+  <v-container fluid class="pa-0">
+    <v-card class="pa-6 ma-0">
         <h1 class="mb-6">Cadastro de Fila Interna</h1>
         <v-form v-model="valid" class="pa-4">
             <v-row>

@@ -1,8 +1,8 @@
 <template>
   <v-container fluid class="pa-6">
     <v-card class="pa-6 ma-6">
-        <h1 class="mb-6">Cadastro de Fila Interna</h1>
-        <v-form v-model="valid" class="pa-4">
+        <v-form @submit.prevent="handleSubmit">
+            <h1 class="mb-6">Cadastro de Fila Interna</h1>
             <v-row>
                 <v-col cols="12" md="4">
                     <v-text-field v-model="form.nome" label="Nome" outlined required></v-text-field>
