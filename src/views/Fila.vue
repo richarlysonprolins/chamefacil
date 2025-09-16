@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height">
-    <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
+  <v-container fluid class="pa-0">
+    <v-card flat tile class="pa-6 ma-0" >
         <v-row>
             <v-col>
                 <h1>Filas</h1>
@@ -65,7 +65,6 @@ import FormFila from '../components/Forms/FormFila.vue'
 
 const filaSelecionada = ref(null)
 const openForm = ref(false) 
-const valid = ref(false)
 
 const form = ref({
     nome: "",

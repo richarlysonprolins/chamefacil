@@ -2,7 +2,7 @@
         <v-dialog v-model="dialog" max-width="900">
             <v-card class="pa-12">
                 <v-form @submit.prevent="handleSubmit">
-                    <h1 class="mb-6">{{ localFila ? 'Editar Posto' : 'Cadastrar Posto' }}</h1>
+                    <h1 class="mb-6">{{ localFila ? 'Editar Totem' : 'Cadastrar Totem' }}</h1>
                     <v-row>
                         <v-col cols="12" md="12">
                             <v-text-field v-model="form.nome" label="Totem" aria-label="Nome do totem" outlined required></v-text-field>
@@ -10,7 +10,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" md="12">
-                            <v-text-field v-model="form.formato" label="Formato do Totem" outlined required></v-text-field>
+                            <v-select v-model="form.formato" label="Formato do Totem" outlined required></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -18,7 +18,7 @@
                             <v-checkbox v-model="form.status" label="Ativo"></v-checkbox>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-checkbox v-model="form.corporativafull" label="Ordenar por grupo"></v-checkbox>
+                            <v-checkbox v-model="form.ordenadogrupo" label="Ordenar por grupo"></v-checkbox>
                         </v-col>
                     </v-row>
                     <v-col></v-col>
@@ -38,36 +38,13 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
     nome: "",
-    descricao: "",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
-})
-
-const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
-const tv = ["TV Normal", "TV Corporativa"]
-const unidades = ["Prolins FC", "Procon"]
-const periodos = ["Manhã", "Tarde"]
-const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]
-
-const selecionados = ref({
-    Manhã: [],
-    Tarde: []
+    formato: "",
+    status: "",
+    ordenadogrupo: ""
 })
 
 function handleSubmit() {

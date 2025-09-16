@@ -2,15 +2,15 @@
         <v-dialog v-model="dialog" max-width="900">
             <v-card class="pa-12">
                 <v-form @submit.prevent="handleSubmit">
-                    <h1 class="mb-6">{{ localFila ? 'Editar Posto' : 'Cadastrar Posto' }}</h1>
+                    <h1 class="mb-6">{{ localFila ? 'Editar Grupo' : 'Cadastrar Grupo' }}</h1>
                     <v-row>
                         <v-col cols="12" md="12">
-                            <v-text-field v-model="form.nome" label="Totem" aria-label="Nome do totem" outlined required></v-text-field>
+                            <v-text-field v-model="form.grupo" label="Grupo de Fila" outlined required></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" md="12">
-                            <v-text-field v-model="form.totem" label="Formato do Totem" outlined required></v-text-field>
+                            <v-select v-model="form.totem" label="Totem" outlined required></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -38,36 +38,13 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
-    nome: "",
-    descricao: "",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
-})
-
-const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
-const tv = ["TV Normal", "TV Corporativa"]
-const unidades = ["Prolins FC", "Procon"]
-const periodos = ["Manhã", "Tarde"]
-const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]
-
-const selecionados = ref({
-    Manhã: [],
-    Tarde: []
+    grupo: "",
+    totem: "",
+    status: "",
+    qrcode: ""
 })
 
 function handleSubmit() {
@@ -81,21 +58,10 @@ watch(
       form.value = { ...val }
     } else {
       form.value = {
-        nome: "",
-        descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        grupo: "",
+        totem: "",
+        status: "",
+        qrcode: ""
       }
     }
   },

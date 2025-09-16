@@ -1,53 +1,17 @@
 <template>
-  <v-container fluid class="pa-0">
-    <v-card class="pa-6 ma-0">
-        <h1 class="mb-6">Cadastro de Fila Interna</h1>
-        <v-form v-model="valid" class="pa-4">
-            <v-row>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="form.nome" label="Nome" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="form.descricao" label="Descrição" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-select v-model="form.tv" :items="tv" label="TV" outlined required>
-                    </v-select>
-                </v-col>
-            </v-row>
-            <v-row>
-                 <v-col cols="12" md="4">
-                    <v-select v-model="form.unidade" :items="unidadeS" label="Unidade" outlined required></v-select>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="form.tempoEspera" label="Tempo de Espera Máximo" placeholder="Em minutos" outlined required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="form.tempoAtendimento" label="Tempo de Atendimento Máximo" placeholder="Em minutos" outlined required></v-text-field>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="3">
-                    <v-select v-model="form.alerta" :items="['Não', 'Sim']" label="Envio de Alerta por Email" outlined required></v-select>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="3">
-                    <v-checkbox v-model="form.qrcode" label="Chamada por nome"></v-checkbox>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-checkbox v-model="form.qrcode" label="Triagem"></v-checkbox>
-                </v-col>
-                <v-col cols="12" md="2">
-                    <v-checkbox v-model="form.qrcode" label="Retorno"></v-checkbox>
-                </v-col>
-            </v-row>
-            
-            <div class="ga-1 d-flex justify-end">
-                <v-btn color="red">Cancelar</v-btn>
-                <v-btn type="submit" color="success">Cadastrar</v-btn>
-            </div>
-        </v-form>
+  <v-container fluid class="pa-0 fill-height">
+    <v-card flat tile class="pa-6 ma-0 fill-height">
+        <v-row>
+            <v-col><h1 class="mb-6">Cadastro de Fila Interna</h1></v-col>
+            <v-col class="d-flex justify-end">
+                <v-btn
+                    color="primary"
+                    variant="flat"
+                    @click="abrirForm()"
+                    >Cadastrar Fila</v-btn>
+            </v-col>
+        </v-row>
+
         <v-row class="d-flex justify-end">
             <v-col cols="12" md="4">
                 <v-text-field label="Pesquisar"></v-text-field>
@@ -56,34 +20,33 @@
                 <v-btn color="primary">Listar por </v-btn>
             </v-col>
         </v-row>
-        <v-data-table :headers="headers" :items="filas" />
+        <v-data-table :headers="headers" :items="filas">
+            <template #item.editar="{ item }">  
+                <v-icon variant="plain"
+                class="cursor-pointer mr-2"
+                @click="abrirForm(item)">mdi-pencil</v-icon>
+            </template>
+
+            <template #item.status="{ item }">
+                <v-icon 
+                variant="plain"
+                @click="toggleStatus(item)" class="cursor-pointer mr-2" :color="item.status ? 'blue' : 'black'">mdi-power
+                    {{ item.status ? 'Ativo' : 'Inativo' }}
+                </v-icon> 
+            </template>
+        </v-data-table>
+        <FormFilaInterna v-model="openForm"
+        :fila="filaSelecionada"
+        @salvar="salvarFila"/>
     </v-card>
   </v-container>
 </template>
 <script setup>
 import { ref } from 'vue'
+import FormFilaInterna from '../components/Forms/FormFilaInterna.vue'
 
-const valid = ref(false)
-
-const form = ref({
-    nome: "",
-    descricao: "",
-    totem: "Nenhum",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
-})
-
-const tv = ["TV Normal", "TV Corporativa"]
+const filaSelecionada = ref(null)
+const openForm = ref(false) 
 
 const headers = ref([
   { title: "Nome", key: "nome" },
@@ -95,12 +58,35 @@ const headers = ref([
   { title: "Editar", key: "editar" }
 ])
 const filas = ref([{
-    nome: "Exame de Prostata", descricao: "Normal", chamada: "Sim", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: ""
-}])
+    nome: "Exame de Prostata", descricao: "Normal", chamada: "Sim", tempoEspera: "10", tempoAtendimento: "10", status: "", editar: ""}
+])
+
+function toggleStatus(item){
+    item.status = !item.status
+}
+
+function abrirForm(fila = null) {
+    filaSelecionada.value = fila ? {...fila} : null
+    openForm.value = true
+}
+
+function salvarFila(fila) {
+  if (filaSelecionada.value) {
+    const index = filas.value.findIndex(f => f.nome === filaSelecionada.value.nome)
+    filas.value[index] = { ...fila }
+  } else {
+    filas.value.push({ ...fila })
+  }
+  openForm.value = false
+}
 
 </script>
 <style scoped>
 .v-checkbox {
     color: black;
+}
+
+.fill-height {
+    height: 100%;
 }
 </style>

@@ -16,10 +16,10 @@
                             <v-text-field v-model="form.endereco" label="Endereço" outlined required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3">
-                            <v-text-field v-model="form.numero" :items="grupo" label="Número" outlined required></v-text-field>
+                            <v-text-field v-model="form.numero" label="Número" outlined required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3">
-                            <v-select v-model="form.estado" :items="uf" label="UF" outlined required>
+                            <v-select v-model="form.uf" :items="uf" label="UF" outlined required>
                             </v-select>
                         </v-col>
                         <v-col cols="12" md="3">
@@ -69,16 +69,14 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
     nome: "",
     cep: "",
-    totem: "",
     endereco: "",
     numero: "",
-    estado: "Selecione um estado",
+    uf: "Selecione um estado",
     cidade: "",
     bairro: "",
     complemento: "",
@@ -87,11 +85,8 @@ const form = ref({
     latitude: "",
     longitude: "",
     senhaapp: "Não",
-    qrcode: false,
-    dias: []
 })
 
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
 const unidades = ["Prolins FC", "Procon"]
 const uf = ["Acre", "Alagoas","Amapá","Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", ""]
 
@@ -107,20 +102,18 @@ watch(
     } else {
       form.value = {
         nome: "",
-        descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        cep: "",
+        endereco: "",
+        numero: "",
+        uf: "Selecione um estado",
+        cidade: "",
+        bairro: "",
+        complemento: "",
+        telefoneum: "",
+        telfonedois: "",
+        latitude: "",
+        longitude: "",
+        senhaapp: "Não",
       }
     }
   },

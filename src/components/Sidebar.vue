@@ -4,6 +4,28 @@ import { RouterLink, RouterView } from 'vue-router';
 <template>
     <nav class="sidebar">
         <div>
+            <h2>Editar Perfil</h2>
+            <ul>
+                <li><router-link to="/alterarsenha">Alterar senha</router-link></li>
+            </ul>
+            <h2>Consultas</h2>
+            <ul>
+                <li><router-link to="/alocacao">Relatório Alocação</router-link></li>
+            </ul>
+            <h2>Relatórios</h2>
+            <ul>
+                <li><router-link to="/relatoriohistorico">Relatório Histórico</router-link></li>
+                <li><router-link to="/relatorioenquete">Relatório Enquete</router-link></li>
+                <li><router-link to="/relatoriocoleta">Relatório de Coleta</router-link></li>
+                <li><router-link to="/relatorioatendimento">Relatório de Atendimento</router-link></li>
+                <li><router-link to="/relatoriodesempenho">Relatório de Desempenho</router-link></li>
+            </ul>
+            <h2>Configurações</h2>
+            <ul>
+                <li><router-link to="/tvcorporativa">Gerenciar TV Corporativa</router-link></li>
+                <li><router-link to="/geracaosenha">Gerenciar Geração de Senha</router-link></li>
+                <li><router-link to="/tema">Alterar Tema</router-link></li>
+            </ul>
             <h2>Cadastros em Geral</h2>
             <ul>
                 <li><router-link to="/fila">Filas</router-link></li>

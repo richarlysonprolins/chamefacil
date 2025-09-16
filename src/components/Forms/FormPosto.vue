@@ -25,37 +25,10 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
-    nome: "",
-    descricao: "",
-    totem: "Nenhum",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
-})
-
-const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
-const tv = ["TV Normal", "TV Corporativa"]
-const unidades = ["Prolins FC", "Procon"]
-const periodos = ["Manhã", "Tarde"]
-const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]
-
-const selecionados = ref({
-    Manhã: [],
-    Tarde: []
+    nome: ""
 })
 
 function handleSubmit() {
@@ -69,21 +42,7 @@ watch(
       form.value = { ...val }
     } else {
       form.value = {
-        nome: "",
-        descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        nome: ""
       }
     }
   },

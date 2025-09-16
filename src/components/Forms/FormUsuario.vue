@@ -2,7 +2,7 @@
         <v-dialog v-model="dialog" max-width="900">
             <v-card class="pa-12">
                 <v-form @submit.prevent="handleSubmit">
-                    <h1 class="mb-6">{{ localFila ? 'Editar Posto' : 'Cadastrar Posto' }}</h1>
+                    <h1 class="mb-6">{{ localFila ? 'Editar Usuario' : 'Cadastrar Usuario' }}</h1>
                     <v-row>
                         <v-col cols="12" md="12">
                             <v-text-field v-model="form.nome" label="Nome" outlined required></v-text-field>
@@ -41,25 +41,14 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
     nome: "",
-    descricao: "",
-    totem: "Nenhum",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
+    login: "",
+    senha: "",
+    perfil: "",
+    email: ""
 })
 
 const perfil = ["Administrador", "Atendente"]
@@ -76,20 +65,10 @@ watch(
     } else {
       form.value = {
         nome: "",
-        descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        login: "",
+        senha: "",
+        perfil: "",
+        email: ""
       }
     }
   },

@@ -2,10 +2,10 @@
         <v-dialog v-model="dialog" max-width="900">
             <v-card class="pa-12">
                 <v-form @submit.prevent="handleSubmit" method="POST" action="valida_login.php">
-                    <h1 class="mb-6">{{ localFila ? 'Editar Fila' : 'Cadastrar Fila' }}</h1>
+                    <h1 class="mb-6">{{ localFila ? 'Editar Coleta' : 'Cadastrar Coleta' }}</h1>
                     <v-row>
                         <v-col cols="12" md="8">
-                            <v-text-field v-model="form.nome" label="Nome" outlined required></v-text-field>
+                            <v-text-field v-model="form.coleta" label="Coleta" outlined required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
                             <v-text-field v-model="form.descricao" label="Descrição" outlined required></v-text-field>
@@ -13,13 +13,13 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" md="4">
-                            <v-select v-model="form.totem" :items="totem" label="Atendente" outlined required></v-select>
+                            <v-select v-model="form.atendente" :items="atendente" label="Atendente" outlined required></v-select>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-select v-model="form.grupo" :items="grupo" label="Posto" outlined required></v-select>
+                            <v-select v-model="form.posto" :items="posto" label="Posto" outlined required></v-select>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-select v-model="form.tv" :items="tv" label="Local de Chamada" outlined required>
+                            <v-select v-model="form.local" :items="local" label="Local de Chamada" outlined required>
                             </v-select>
                         </v-col>
                     </v-row>
@@ -41,37 +41,14 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
-    nome: "",
+    coleta: "",
     descricao: "",
-    totem: "Nenhum",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
-})
-
-const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
-const tv = ["TV Normal", "TV Corporativa"]
-const unidades = ["Prolins FC", "Procon"]
-const periodos = ["Manhã", "Tarde"]
-const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]
-
-const selecionados = ref({
-    Manhã: [],
-    Tarde: []
+    atendente: "",
+    posto: "",
+    local: ""
 })
 
 function handleSubmit() {
@@ -85,21 +62,11 @@ watch(
       form.value = { ...val }
     } else {
       form.value = {
-        nome: "",
+        coleta: "",
         descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        atendente: "",
+        posto: "",
+        local: ""
       }
     }
   },

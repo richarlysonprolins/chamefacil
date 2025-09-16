@@ -33,31 +33,13 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
-    nome: "",
-    cep: "",
-    totem: "",
-    endereco: "",
-    numero: "",
-    estado: "Selecione um estado",
-    cidade: "",
-    bairro: "",
-    complemento: "",
-    telefoneum: "",
-    telfonedois: "",
-    latitude: "",
-    longitude: "",
-    senhaapp: "Não",
-    qrcode: false,
-    dias: []
+    local: "",
+    descricao: "",
+    unidade: ""
 })
-
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
-const unidades = ["Prolins FC", "Procon"]
-const uf = ["Acre", "Alagoas","Amapá","Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", ""]
 
 function handleSubmit() {
   emit('salvar', form.value)
@@ -70,21 +52,9 @@ watch(
       form.value = { ...val }
     } else {
       form.value = {
-        nome: "",
+        local: "",
         descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        unidade: ""
       }
     }
   },

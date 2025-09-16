@@ -76,7 +76,7 @@
                         </v-table>
                     <v-col></v-col>
                     <div class="ga-1 d-flex justify-end">
-                        <v-btn color="red" @click = "dialog =false">Cancelar</v-btn>
+                        <v-btn color="red" @click = "dialog=false">Cancelar</v-btn>
                         <v-btn type="submit" color="success">Cadastrar</v-btn>
                     </div>
                 </v-form>
@@ -91,7 +91,6 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
@@ -155,8 +154,6 @@ watch(
   },
   { immediate: true }
 )
-
-
 
 </script>
 <style scoped>

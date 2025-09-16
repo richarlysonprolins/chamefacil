@@ -2,18 +2,18 @@
         <v-dialog v-model="dialog" max-width="900">
             <v-card class="pa-12">
                 <v-form @submit.prevent="handleSubmit" method="POST" action="valida_login.php">
-                    <h1 class="mb-6">{{ localFila ? 'Editar Fila' : 'Cadastrar Fila' }}</h1>
+                    <h1 class="mb-6">{{ localFila ? 'Editar TV' : 'Cadastrar TV' }}</h1>
                     <v-row>
                         <v-col cols="12" md="8">
                             <v-text-field v-model="form.nome" label="Nome" outlined required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-select v-model="form.programacao" label="Programação" outlined required></v-select>
+                            <v-select v-model="form.programacao" label="Programação da TV" outlined required></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" md="2">
-                            <v-checkbox v-model="form.qrcode" label="QR Code"></v-checkbox>
+                            <v-checkbox v-model="form.status" label="Ativo"></v-checkbox>
                         </v-col>
                         <v-col cols="12" md="3">
                             <v-checkbox v-model="form.corporativafull" label="TV Corporativa Full"></v-checkbox>
@@ -43,37 +43,15 @@ const props = defineProps({
 })
 
 const dialog = defineModel()
-const valid = ref(false)
 const emit = defineEmits(['salvar'])
 
 const form = ref({
     nome: "",
-    descricao: "",
-    totem: "Nenhum",
-    grupo: "Nenhum",
-    tv: "Selecione as TVs",
-    unidade: "",
-    sigla: "",
-    inicio: "",
-    fim: "",
-    acompanhante: "Não",
-    tempoEspera: "",
-    tempoAtendimento: "",
-    alerta: "Não",
-    qrcode: false,
-    dias: []
-})
-
-const totem = ["Nenhum", "Totem 1", "Totem 2"]
-const grupo = ["Nenhum","Exame de Prostata", "Farmácia"]
-const tv = ["TV Normal", "TV Corporativa"]
-const unidades = ["Prolins FC", "Procon"]
-const periodos = ["Manhã", "Tarde"]
-const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]
-
-const selecionados = ref({
-    Manhã: [],
-    Tarde: []
+    programacao: "",
+    status: "",
+    corporativafull: "",
+    corporativa: "",
+    beep: ""
 })
 
 function handleSubmit() {
@@ -88,20 +66,11 @@ watch(
     } else {
       form.value = {
         nome: "",
-        descricao: "",
-        totem: "Nenhum",
-        grupo: "Nenhum",
-        tv: "Selecione as TVs",
-        unidade: "",
-        sigla: "",
-        inicio: "",
-        fim: "",
-        acompanhante: "Não",
-        tempoEspera: "",
-        tempoAtendimento: "",
-        alerta: "Não",
-        qrcode: false,
-        dias: []
+        programacao: "",
+        status: "",
+        corporativafull: "",
+        corporativa: "",
+        beep: ""
       }
     }
   },

@@ -15,6 +15,7 @@ import GrupoFila from '../views/GrupoFila.vue'
 import Coletas from '../views/Coletas.vue'
 import UsuarioUnidade from '../views/UsuarioUnidade.vue'
 import Enquete from '../views/Enquete.vue'
+import Chamada from '../views/Chamada.vue'
 import FormFila from '../components/Forms/FormFila.vue'
 import FormFilaInterna from '../components/Forms/FormFilaInterna.vue'
 
@@ -105,6 +106,11 @@ const router = createRouter({
       path: '/enquete',
       name: 'enquete',
       component: Enquete,
+    },
+    {
+      path: '/chamada',
+      name: 'chamada',
+      component: Chamada,
     },
     {
       path: '/about',
