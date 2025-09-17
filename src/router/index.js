@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import '@mdi/font/css/materialdesignicons.css'
+import AlterarSenha from '../views/AlterarSenha.vue'
 import Fila from '../views/Fila.vue'
 import FilaInterna from '../views/FilaInterna.vue'
 import Filas from '../views/Filas.vue'
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/alterarsenha',
+      name: 'alterarsenha',
+      component: AlterarSenha,
     },
     {
       path: '/fila',

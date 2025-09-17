@@ -13,7 +13,7 @@
                             <v-text-field v-model="form.login" label="Login" outlined required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-text-field v-model="form.senha" label="Senha" outlined required></v-text-field>
+                            <v-text-field type="password" v-model="form.senha" label="Senha" outlined required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
                             <v-select v-model="form.perfil" :items="perfil" label="Perfil" outlined required></v-select>
