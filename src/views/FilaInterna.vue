@@ -86,7 +86,15 @@ function salvarFila(fila) {
     color: black;
 }
 
+.larguratoda {
+    width: 100% !important;
+}
+
 .fill-height {
     height: 100%;
+}
+
+.v-container.fill-height {
+    display: block !important;
 }
 </style>

@@ -1,6 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import '@mdi/font/css/materialdesignicons.css'
 import AlterarSenha from '../views/AlterarSenha.vue'
+import Alocacao from '../views/Alocacao.vue'
+import RelatorioHistorico from '../views/RelatorioHistorico.vue'
+import RelatorioEnquete from '../views/RelatorioEnquete.vue'
+import RelatorioColeta from '../views/RelatorioColeta.vue'
+import RelatorioAtendimento from '../views/RelatorioAtendimento.vue'  
+import RelatorioDesempenho from '../views/RelatorioDesempenho.vue' 
+import TVCorporativa from '@/views/TVCorporativa.vue'
+import GeracaoSenha from '../views/ManageSenha.vue'
+import Tema from '../views/Tema.vue'
 import Fila from '../views/Fila.vue'
 import FilaInterna from '../views/FilaInterna.vue'
 import Filas from '../views/Filas.vue'
@@ -32,6 +41,51 @@ const router = createRouter({
       path: '/alterarsenha',
       name: 'alterarsenha',
       component: AlterarSenha,
+    },
+    {
+      path: '/alocacao',
+      name: 'alocacao',
+      component: Alocacao,
+    },
+    {
+      path: '/relatoriohistorico',
+      name: 'relatoriohistorico',
+      component: RelatorioHistorico,
+    },
+    {
+      path: '/relatorioenquete',
+      name: 'relatorioenquete',
+      component: RelatorioEnquete,
+    },
+    {
+      path: '/relatoriocoleta',
+      name: 'relatoriocoleta',
+      component: RelatorioColeta,
+    },
+    {
+      path: '/relatorioatendimento',
+      name: 'relatorioatendimento',
+      component: RelatorioAtendimento,
+    },
+    {
+      path: '/relatoriodesempenho',
+      name: 'relatoriodesempenho',
+      component: RelatorioDesempenho,
+    },
+    {
+      path: '/tvcorporativa',
+      name: 'tvcorporativa',
+      component: TVCorporativa,
+    },
+    {
+      path: '/geracaosenha',
+      name: 'geracaosenha',
+      component: GeracaoSenha,
+    },
+    {
+      path: '/tema',
+      name: 'tema',
+      component: Tema,
     },
     {
       path: '/fila',

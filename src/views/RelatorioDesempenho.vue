@@ -1,22 +1,38 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height larguratoda">
+  <v-container fluid class="pa-0  ma-0 fill-height">
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Alterar Senha</h1>
+                <h1>Relatório de Desempenho</h1>
+            </v-col>
+        </v-row>
+ 
+        <v-row>
+            <v-col cols="12" md="4">
+                <v-select label="Unidade"></v-select>
+            </v-col>
+             <v-col cols="12" md="4">
+                <v-text-field type="date" label="Data inicial"></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4">
+                <v-text-field type="date" label="Data final"></v-text-field>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="12" md="6">
-                <v-text-field type="password" label="Nova senha"></v-text-field>
-            </v-col>
-             <v-col cols="12" md="6">
-                <v-text-field type="password" label="Confirmar senha"></v-text-field>
+            <v-col>
+                <h3>Situação das senhas</h3>
             </v-col>
         </v-row>
-        <v-row class="ga-2 d-flex justify-end">
-            <v-btn color="red">Cancelar</v-btn>
-            <v-btn color="success">Confirmar</v-btn>
+        <v-row>
+            <v-col cols="12" md="2">
+                <v-radio value="espera" label="Em espera"></v-radio>
+            </v-col>
+            <v-col cols="12" md="2">
+                <v-radio value="atendidas" label="Atendidas"></v-radio>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-end">
+            <v-btn color="success">Pesquisar</v-btn>
         </v-row>
         <FormColeta v-model="openForm"
         :fila="filaSelecionada"

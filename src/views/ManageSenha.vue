@@ -1,22 +1,36 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height larguratoda">
+  <v-container fluid class="pa-0  ma-0 fill-height">
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Alterar Senha</h1>
+                <h1>Geração de senha</h1>
             </v-col>
         </v-row>
         <v-row>
             <v-col cols="12" md="6">
-                <v-text-field type="password" label="Nova senha"></v-text-field>
+                <v-text-field label="Nome da empresa"></v-text-field>
             </v-col>
              <v-col cols="12" md="6">
-                <v-text-field type="password" label="Confirmar senha"></v-text-field>
+                <v-text-field label="URL do Chame Fácil"></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+                <v-checkbox label="Senha web"></v-checkbox>
+            </v-col>
+            <v-col cols="12" md="6">
+                <v-checkbox label="QR Code"></v-checkbox>
+            </v-col>
+            <v-col cols="12" md="6">
+                <v-checkbox label="Agendamento"></v-checkbox>
             </v-col>
         </v-row>
-        <v-row class="ga-2 d-flex justify-end">
+        <v-row>
+            <v-col>
+                <v-text-field></v-text-field>
+            </v-col>
+        </v-row>
+        <v-row>
             <v-btn color="red">Cancelar</v-btn>
-            <v-btn color="success">Confirmar</v-btn>
+            <v-btn color="success"><v-icon>mdi-check</v-icon>Salvar</v-btn>
         </v-row>
         <FormColeta v-model="openForm"
         :fila="filaSelecionada"

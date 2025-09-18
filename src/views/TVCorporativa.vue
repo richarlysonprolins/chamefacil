@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height larguratoda">
+  <v-container fluid class="pa-0  ma-0 fill-height">
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Alterar Senha</h1>
+                <h1>Conteúdo TV Corporativa</h1>
             </v-col>
         </v-row>
         <v-row>
@@ -14,7 +14,7 @@
                 <v-text-field type="password" label="Confirmar senha"></v-text-field>
             </v-col>
         </v-row>
-        <v-row class="ga-2 d-flex justify-end">
+        <v-row>
             <v-btn color="red">Cancelar</v-btn>
             <v-btn color="success">Confirmar</v-btn>
         </v-row>

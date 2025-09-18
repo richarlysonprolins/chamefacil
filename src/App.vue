@@ -2,13 +2,26 @@
 import { RouterView } from 'vue-router'
 import Sidebar from './components/Sidebar.vue'
 
+const profile = "Prolins It Solutions"
 </script>
 
 <template>
-  <div class="dashboard">
-    <Sidebar />
-    <div class="main-content">
-    <RouterView />
+  <div class="app-layout">
+    <header class="navbar">
+      <div class="d-flex">
+         <v-img :width="40" :height="40" src="../src/assets/logo-cf.png"></v-img>
+      </div>
+      <!-- Arrumar isso, está no meio -->
+      <router-link><v-icon>mdi-account</v-icon>{{ profile }}</router-link>
+        <button>Sair</button>
+    </header>
+    <div class="dashboard">
+      <Sidebar />
+      <div class="main-content">
+        <div class="content">
+          <RouterView />
+        </div>
+    </div>
   </div>
   </div>
 </template>
@@ -25,6 +38,11 @@ html, body, #app {
   height: 100%;
 }
 
+.app-layout {
+  display: flex;
+  flex-direction: column;
+}
+
 .dashboard {
   display: flex;
   height: 100%;
@@ -37,9 +55,25 @@ html, body, #app {
   padding: 20px;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(0, 59, 131);
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
 .main-content {
-  flex: 1;          
-  overflow-y: auto;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column; 
+}
+
+.main-content .content {
+  width: 100%;
+  flex: 1;
 }
 
 

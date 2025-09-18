@@ -1,22 +1,37 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height larguratoda">
+  <v-container fluid class="pa-0  ma-0 fill-height">
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Alterar Senha</h1>
+                <h1>Relatório Histórico</h1>
             </v-col>
         </v-row>
         <v-row>
             <v-col cols="12" md="6">
-                <v-text-field type="password" label="Nova senha"></v-text-field>
+                <v-text-field label="Data inicial"></v-text-field>
             </v-col>
              <v-col cols="12" md="6">
-                <v-text-field type="password" label="Confirmar senha"></v-text-field>
+                <v-text-field label="Data final"></v-text-field>
             </v-col>
         </v-row>
-        <v-row class="ga-2 d-flex justify-end">
-            <v-btn color="red">Cancelar</v-btn>
-            <v-btn color="success">Confirmar</v-btn>
+        <v-row>
+            <v-col cols="12" md="4">
+                <v-select label="Unidade"></v-select>
+            </v-col>
+             <v-col cols="12" md="4">
+                <v-select label="Fila"></v-select>
+            </v-col>
+            <v-col cols="12" md="4">
+                <v-select label="Servidor"></v-select>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="12" md="4">
+                <v-select label="Registros por página"></v-select>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-end">
+            <v-btn color="success">Visualizar</v-btn>
         </v-row>
         <FormColeta v-model="openForm"
         :fila="filaSelecionada"

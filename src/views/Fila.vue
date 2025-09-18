@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="pa-0">
-    <v-card flat tile class="pa-6 ma-0" >
+  <v-container fluid class="pa-0 fill-height">
+    <v-card flat tile class="pa-6 ma-0 fill-height">
         <v-row>
             <v-col>
                 <h1>Filas</h1>

@@ -1,22 +1,39 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height larguratoda">
+  <v-container fluid class="pa-0  ma-0 fill-height">
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Alterar Senha</h1>
+                <h1>Relatório de coleta</h1>
+                <p>Aqui você pode visualizar informações relacionadas a atendimentos das filas coletas.</p>
+            </v-col>
+        </v-row>
+        <v-divider></v-divider>
+    
+        <h2>Selecionar perídodo de tempo</h2>
+        <v-row>
+            <v-col cols="" md="">
+                <v-btn-toggle
+                v-model="selecionado"
+                divided
+                mandatory
+                color="primary"
+                >
+                
+                <v-btn value="dia">Por dia</v-btn>
+                <v-btn value="periodo">Por período de tempo</v-btn>
+            </v-btn-toggle>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="12" md="6">
-                <v-text-field type="password" label="Nova senha"></v-text-field>
+            <v-col cols="12" md="2">
+                <h3>Data do relatório:</h3>
             </v-col>
-             <v-col cols="12" md="6">
-                <v-text-field type="password" label="Confirmar senha"></v-text-field>
+            <v-col col="12" md="4">
+                <v-text-field type="date"></v-text-field>
             </v-col>
         </v-row>
-        <v-row class="ga-2 d-flex justify-end">
-            <v-btn color="red">Cancelar</v-btn>
-            <v-btn color="success">Confirmar</v-btn>
+        <v-row class="d-flex justify-end">
+            <v-btn color="success">Fazer a consulta</v-btn>
         </v-row>
         <FormColeta v-model="openForm"
         :fila="filaSelecionada"
@@ -28,9 +45,10 @@
 import { ref } from 'vue'
 import FormColeta from '../components/Forms/FormColeta.vue'
 
+const selecionado = ref('dia')
 const filaSelecionada = ref(null)
 const openForm = ref(false) 
-const valid = ref(false)
+
 
 const form = ref({
     nome: "",

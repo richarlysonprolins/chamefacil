@@ -1,22 +1,37 @@
 <template>
-  <v-container fluid class="pa-0  ma-0 fill-height larguratoda">
+  <v-container fluid class="pa-0  ma-0 fill-height">
     <v-card flat tile class="pa-6 ma-0 fill-height larguratoda" >
         <v-row>
             <v-col>
-                <h1>Alterar Senha</h1>
+                <h1>Relatório Histórico Enquete</h1>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="12" md="6">
-                <v-text-field type="password" label="Nova senha"></v-text-field>
+            <v-col cols="12" md="3">
+                <v-select label="Enquete"></v-select>
             </v-col>
-             <v-col cols="12" md="6">
-                <v-text-field type="password" label="Confirmar senha"></v-text-field>
+            <v-col cols="12" md="3">
+                <v-text-field type="date" label="Data Incial"></v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+                <v-text-field type="date" label="Data Final"></v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+                <v-select label="Tipo"></v-select>
             </v-col>
         </v-row>
-        <v-row class="ga-2 d-flex justify-end">
-            <v-btn color="red">Cancelar</v-btn>
-            <v-btn color="success">Confirmar</v-btn>
+        <v-row>
+            <v-col cols="12" md="3">
+                <v-select label="Servidor"></v-select>
+            </v-col>
+            <v-col cols="12" md="6">
+            </v-col>
+            <v-col cols="12" md="3" class="d-flex justify-end">
+                <img width="50px" height="50px" src="../assets/Logo-Microsoft-Excel-Png-1024x1024.png"></img>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-end">
+            <v-btn color="success">Visualizar</v-btn>
         </v-row>
         <FormColeta v-model="openForm"
         :fila="filaSelecionada"
@@ -30,7 +45,6 @@ import FormColeta from '../components/Forms/FormColeta.vue'
 
 const filaSelecionada = ref(null)
 const openForm = ref(false) 
-const valid = ref(false)
 
 const form = ref({
     nome: "",
