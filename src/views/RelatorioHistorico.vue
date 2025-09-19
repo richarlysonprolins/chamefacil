@@ -8,10 +8,10 @@
         </v-row>
         <v-row>
             <v-col cols="12" md="6">
-                <v-text-field label="Data inicial"></v-text-field>
+                <v-text-field type="date" label="Data inicial"></v-text-field>
             </v-col>
              <v-col cols="12" md="6">
-                <v-text-field label="Data final"></v-text-field>
+                <v-text-field type="date" label="Data final"></v-text-field>
             </v-col>
         </v-row>
         <v-row>

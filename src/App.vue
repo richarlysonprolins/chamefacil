@@ -8,12 +8,14 @@ const profile = "Prolins It Solutions"
 <template>
   <div class="app-layout">
     <header class="navbar">
-      <div class="d-flex">
+      <div class="d-flex align-center">
          <v-img :width="40" :height="40" src="../src/assets/logo-cf.png"></v-img>
+         <h1>Não chame de Fácil</h1>
       </div>
-      <!-- Arrumar isso, está no meio -->
-      <router-link><v-icon>mdi-account</v-icon>{{ profile }}</router-link>
+       <div class="d-flex justify-end ga-2">
+        <router-link><v-icon>mdi-account</v-icon>{{ profile }}</router-link>
         <button>Sair</button>
+       </div>
     </header>
     <div class="dashboard">
       <Sidebar />
@@ -33,6 +35,11 @@ html, body, #app {
   background-color: rgb(0, 129, 250);
   margin: 0;
   padding: 0;
+}
+
+.profile {
+  gap: 10px;
+  width: 100%;
 }
 #app {
   height: 100%;
@@ -56,12 +63,12 @@ html, body, #app {
 }
 
 .navbar {
+  width: 100dvw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: rgb(0, 59, 131);
   padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
 }
 
 .main-content {
